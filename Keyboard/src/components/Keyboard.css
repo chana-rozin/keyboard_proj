@@ -1,0 +1,22 @@
+#textArea {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+#keyboard {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+button {
+    width: 40px;
+    height: 40px;
+    margin: 5px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+button.capsLock {
+    background-color: #aaffaa;
+}
