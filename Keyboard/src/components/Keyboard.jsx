@@ -5,7 +5,7 @@ export default function Keyboard()
 {
 
     const handleRegularKey = (key) => {
-        setInputText(inputText + key);        
+        setInputText(inputText+key);
     }
 
     const handleDeleteCharacter = () => {
@@ -88,12 +88,13 @@ export default function Keyboard()
 
     const activeButtons = [{act: "space", func: handleSpaceKey}, {act: "shift", func: handleShiftKey}, {act: "changeLanguage", func: handleLanguageChange},
                             {act: "&^@", func: handleSpecialChars}]
-    const spaceCharacters = [" ", "    "];     
+    const spaceCharacters = [" ", "    "];
+    
     const [inputText, setInputText] = useState('');
-    const [keyboardState, setKeyboardState] = useState(keysOfAlphabetHebrewButtons);
-    const [isCaps, setIsCaps] = useState(false); 
+    const [keyboardState, setKeyboardState] = useState("hebrew");
+    //const [isCaps, setIsCaps] = useState(false); 
     const [isShift, setIsShift] = useState(false); 
-    let currentState = {hebrew: true, english: false, special: false} 
+    //let currentState = {hebrew: true, english: false, special: false} 
     
     
     return (
@@ -106,7 +107,8 @@ export default function Keyboard()
                 {keysOfNumbers}
             </div>
             <div className="charcters">
-                {keyboardState}                
+                {keyboardState=="hebrew"?keysOfAlphabetHebrewButtons:
+                keyboardState=="english"? keysOfAlphabetEnglishButtons: keysOfSpecialChars}                
             </div>            
         </div>
         </>
