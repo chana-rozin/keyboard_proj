@@ -7,17 +7,19 @@ export default function Keyboard()
     const [inputText, setInputText] = useState('');
     const [keyboardState, setKeyboardState] = useState("hebrew");    
     const [isUpper, setIsUpper] = useState(false);
-    const [specialCharsLabel, setSpecialCharsLabel] = useState("&^@"); 
+    const [specialCharsLabel, setSpecialCharsLabel] = useState("&^@");
+    const [actionHistory, setActionHistory] = useState([]);
     const [currentState, setCurrentState] = useState({
         hebrew: true,
         english: false,
         special: false
     });
-    const actionHistory = [];
+    //let actionHistory = [];
     
     const handleRegularKey = (key) => {
-        setInputText(inputText + key);
         actionHistory.push({type: 'add'})
+        setInputText(inputText + key);
+        
     }
 
     const handleDeleteCharacter = () => {
@@ -86,7 +88,7 @@ export default function Keyboard()
                 setKeyboardState(lastAction.language);
                 break;
             case 'handleSpecial':
-                setCurrentState((prev) => ({
+                setCurrentState(() => ({
                     special: !lastAction.label === "&^@",
                     hebrew: lastAction.prevState === 'hebrew',
                     english: lastAction.prevState === 'english',
@@ -124,7 +126,7 @@ export default function Keyboard()
                             {act: specialCharsLabel, func: handleSpecialChars}, { act: 'undo', func: handleUndo }];
 
     const keysOfSpecialChars = specialCharacters.map(key => (
-        <button key={key} onClick={() => handleRegularKey(key)}>
+        <button key={key} onClick={() => key == "Enter" ? handleRegularKey("\n") : handleRegularKey(key)}>
             {key}
         </button>
     ));    
@@ -135,7 +137,7 @@ export default function Keyboard()
     ));
 
     const keysOfAlphabetEnglishButtonsUpper = alphaBetEnglishOrderedByKeyboard.map(key => (
-        <button key={key} onClick={() => key == "Enter" ? handleRegularKey("\n") : handleRegularKey(key.toUpperCase())}>
+        <button key={key.toUpperCase()} onClick={() => key == "Enter" ? handleRegularKey("\n") : handleRegularKey(key.toUpperCase())}>
             {key.toUpperCase()}
         </button>
         ));
