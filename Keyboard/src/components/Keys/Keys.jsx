@@ -11,7 +11,7 @@ export default function Keys(props) {
     
     const activeButtons = [{ act: "UPPER", func: props.handleFunctions.handleUpperKey }, { act: "changeLanguage", func: props.handleFunctions.handleLanguageChange },
     { act: props.specialLabel, func: props.handleFunctions.handleSpecialChars },
-    { act: "        ", func: props.handleFunctions.handleRegularKey },  
+    { act: " ", func: props.handleFunctions.handleRegularKey },  
     { act: 'undo', func: props.handleFunctions.handleUndo },
     {act: "clear all", func: props.handleFunctions.handleClearAllKey}
     , { act: "🙂", func: props.setEmojiesShown }
@@ -25,7 +25,7 @@ export default function Keys(props) {
     ));
 
     const keysOfActiveButtons = activeButtons.map(key => (
-        <button key={key.act} onClick={() => { !key == "🙂" ? key.func(key.act) : key.func(!props.isEmojiesShown) }} style={{backgroundColor : (key === "UPPER" && currIsUpper) ? 'red' : 'whitesmoke' }}>
+        <button key={key.act} onClick={() => { key != "🙂" ? key.func(key.act) : key.func(!props.isEmojiesShown) }} style={{backgroundColor : (key === "UPPER" && currIsUpper) ? 'red' : 'whitesmoke' }}>
             {key.act}
         </button>
     ));
