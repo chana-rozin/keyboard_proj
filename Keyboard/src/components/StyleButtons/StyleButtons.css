@@ -1,6 +1,6 @@
-.color-picker-container {
+.color-picker-container, .fonts-array {
     position: fixed;
-    top: 82%;
+    top: 85%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1000; 

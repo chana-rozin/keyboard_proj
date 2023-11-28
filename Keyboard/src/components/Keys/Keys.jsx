@@ -15,7 +15,8 @@ export default function Keys(props) {
         "?", ">", "<", ",", ".", '"', "'", ":"
     ];
     const activeButtons = [{ act: " ", func: props.handleFunctions.handleRegularKey }, { act: "UPPER", func: props.handleFunctions.handleUpperKey }, { act: "changeLanguage", func: props.handleFunctions.handleLanguageChange },
-    { act: props.specialLabel, func: props.handleFunctions.handleSpecialChars }, { act: 'undo', func: props.handleFunctions.handleUndo }
+    { act: props.specialLabel, func: props.handleFunctions.handleSpecialChars }, { act: 'undo', func: props.handleFunctions.handleUndo },
+                        {act: "clear all", func: props.handleFunctions.handleClearAllKey}
         , { act: "🙂", func: props.setEmojiesShown }
     ];
 
