@@ -19,7 +19,8 @@ export default function Keyboard() {
     });
     const [textColor, setTextColor] = useState('black');
     const [fontSize, setFontSize] = useState('16px');
-    const [fontFamily, setFontFamily] = useState('Arial');    
+    const [fontFamily, setFontFamily] = useState('Arial');
+    const [fontsArrayShow, setFontsArrayShow] = useState(false);    
     const [colorPalette, setColorPalette] = useState(false);   
 
     const handleRegularKey = (key) => {
@@ -71,6 +72,11 @@ export default function Keyboard() {
         setIsUpper(!isUpper)
     }
 
+    const handleClearAllKey = () =>{
+        actionHistory.push({type: 'clearAll', prevText: inputText});
+        setInputText([]);
+    }
+
     const handleUndo = () => {
         const lastAction = actionHistory.pop();
 
@@ -106,7 +112,9 @@ export default function Keyboard() {
                     setKeyboardState("special");
                     setSpecialCharsLabel(lastAction.label);
                 }
-                break;            
+                break;
+            case 'clearAll':
+                setInputText(lastAction.prevText)            
             default:
                 break;
 
@@ -129,7 +137,15 @@ export default function Keyboard() {
         setColorPalette(!colorPalette);
                
     }
+
+    const handleFontChange = (key) => {
+        setFontFamily(key);
+    }
     
+    const handleFontKey = () => {
+        setFontsArrayShow(!fontsArrayShow)
+    }
+
     return (
         <>
             <pre className="textArea">
@@ -143,13 +159,14 @@ export default function Keyboard() {
                 currState={keyboardState}
                 currIsUpper={isUpper}
                 specialLabel={specialCharsLabel}
-                handleFunctions={{ handleRegularKey, handleDeleteCharacter, handleSpecialChars, handleLanguageChange, handleUpperKey, handleUndo }}
+                handleFunctions={{ handleRegularKey, handleDeleteCharacter, handleSpecialChars, handleLanguageChange, handleUpperKey, handleClearAllKey, handleUndo }}
                 ctrlZ={actionHistory}
             ></Keys>
             <StyleButtons
-                handleFunctions={{ handleFontSizeEnlargement, handleFontSizeReduction , handleTxtColorChange}}
+                handleFunctions={{ handleFontSizeEnlargement, handleFontSizeReduction , handleTxtColorChange, handleFontKey, handleFontChange}}
                 isColorPalleteShown = {colorPalette}
-                setColor = {setTextColor}                
+                setColor = {setTextColor}
+                isFontsArrayShown = {fontsArrayShow}                               
             ></StyleButtons>            
         </>
     )
