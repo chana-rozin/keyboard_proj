@@ -11,7 +11,7 @@ export default function EnglishKeys(props) {
         </button>
     ));
     const keysOfSecondRow = secondRow.map(key => (
-        <button key={key} onClick={() => key == "Enter" ? props.handleFunction("\n") : props.handleFunctions.handleRegularKey(key)}>
+        <button key={key} onClick={() => key == "Enter" ? props.handleFunction("\n") : props.handleFunction(key)}>
             {key}
         </button>
     ));
