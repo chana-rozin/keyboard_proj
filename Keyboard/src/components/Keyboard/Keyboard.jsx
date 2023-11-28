@@ -3,8 +3,6 @@ import './Keyboard.css'
 import Keys from '../Keys/Keys';
 import StyleButtons from '../StyleButtons/StyleButtons';
 import { ColorPicker, useColor } from "react-color-palette";
-import ReactFontPicker from 'react-font-picker';
-import { FontPicker } from 'react-font-picker';
 
 
 export default function Keyboard() {
@@ -22,8 +20,7 @@ export default function Keyboard() {
     const [textColor, setTextColor] = useState('black');
     const [fontSize, setFontSize] = useState('16px');
     const [fontFamily, setFontFamily] = useState('Arial');    
-    const [colorPalette, setColorPalette] = useState(false);
-    const [fontPallete, setFontPallete] = useState(false);
+    const [colorPalette, setColorPalette] = useState(false);   
 
     const handleRegularKey = (key) => {
         actionHistory.push({ type: 'add', key: key, style: { color: textColor, fontSize: fontSize, fontFamily: fontFamily } });
@@ -132,10 +129,6 @@ export default function Keyboard() {
         setColorPalette(!colorPalette);
                
     }
-
-    const handleFontFamilyChange = () => {
-        setFontPallete(!fontPallete);
-    };
     
     return (
         <>
@@ -154,11 +147,9 @@ export default function Keyboard() {
                 ctrlZ={actionHistory}
             ></Keys>
             <StyleButtons
-                handleFunctions={{ handleFontSizeEnlargement, handleFontSizeReduction , handleTxtColorChange, handleFontFamilyChange}}
+                handleFunctions={{ handleFontSizeEnlargement, handleFontSizeReduction , handleTxtColorChange}}
                 isColorPalleteShown = {colorPalette}
-                setColor = {setTextColor}
-                //isFontPalleteShown = {fontPallete}
-                //setFont = {() => setFontPallete(!fontPallete)}
+                setColor = {setTextColor}                
             ></StyleButtons>            
         </>
     )
