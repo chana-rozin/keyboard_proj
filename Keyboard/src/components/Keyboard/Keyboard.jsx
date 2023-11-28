@@ -5,11 +5,7 @@ import StyleButtons from '../StyleButtons/StyleButtons';
 import { ColorPicker, useColor } from "react-color-palette";
 //import "react-color-palette/lib/css/styles.css";
 import { CompactPicker } from 'react-color';
-import { EmojiPicker } from 'emoji-picker-react';
-import { FontPicker } from "font-picker-react";
 
-import ReactFontPicker from 'react-font-picker';
-import { FontPicker } from 'react-font-picker';
 
 export default function Keyboard() {
 
@@ -26,7 +22,8 @@ export default function Keyboard() {
     const [textColor, setTextColor] = useState('black');
     const [fontSize, setFontSize] = useState('16px');
     const [fontFamily, setFontFamily] = useState('Arial');    
-    const [colorPalette, setColorPalette] = useState(false);   
+    const [colorPalette, setColorPalette] = useState(false); 
+    const [emojiesPalette, setEmojiesPalette] = useState(false);   
 
     const handleRegularKey = (key) => {
         actionHistory.push({ type: 'add', key: key, style: { color: textColor, fontSize: fontSize, fontFamily: fontFamily } });
@@ -159,11 +156,13 @@ export default function Keyboard() {
                 specialLabel={specialCharsLabel}
                 handleFunctions={{ handleRegularKey, handleDeleteCharacter, handleSpecialChars, handleLanguageChange, handleUpperKey, handleUndo }}
                 ctrlZ={actionHistory}
+                isEmojiesShown = {emojiesPalette}
+                setEmojiesShown ={setEmojiesPalette}
             ></Keys>
             <StyleButtons
                 handleFunctions={{ handleFontSizeEnlargement, handleFontSizeReduction , handleTxtColorChange}}
                 isColorPalleteShown = {colorPalette}
-                setColor = {setTextColor}                
+                setColor = {setTextColor}          
             ></StyleButtons>            
         </>
     )
