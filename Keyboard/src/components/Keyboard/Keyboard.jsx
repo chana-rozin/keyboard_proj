@@ -4,7 +4,10 @@ import Keys from '../Keys/Keys';
 import StyleButtons from '../StyleButtons/StyleButtons';
 import { ColorPicker, useColor } from "react-color-palette";
 //import "react-color-palette/lib/css/styles.css";
-import { TwitterPicker } from 'react-color';
+import { CompactPicker } from 'react-color';
+import EmojiPicker from 'emoji-picker-react';
+import FontPicker from "font-picker-react";
+
 
 
 export default function Keyboard() {
@@ -130,11 +133,6 @@ export default function Keyboard() {
         setFontSize(`${newSize}px`);
     }
 
-    const handleTxtColorChange = (color)=>{
-        actionHistory.push({type: 'colorChange', color:'the color'})
-
-    }
-
 
     // const getTextStyle = (size) => ({
     //     color: textColor,
@@ -160,7 +158,7 @@ export default function Keyboard() {
                 ctrlZ={actionHistory}
             ></Keys>
             <StyleButtons
-                handleFunctions={{ handleFontSizeEnlargement, handleFontSizeReduction , handleTxtColorChange}}
+                handleFunctions={{ handleFontSizeEnlargement, handleFontSizeReduction}}
             ></StyleButtons>
             {/* <ColorPicker
         width={600}
@@ -171,7 +169,9 @@ export default function Keyboard() {
         dark
       /> */}
 
-<TwitterPicker onChange={(nColor)=>setTextColor(nColor)} onSwatchHover={(nColor)=>setTextColor(nColor)} />;
+<CompactPicker onChangeComplete={(nColor=>setColor(nColor.hex))} />;
+<EmojiPicker onEmojiClick={(emojiob)=>handleRegularKey(emojiob.emoji)}></EmojiPicker>
+
         </>
     )
 }
