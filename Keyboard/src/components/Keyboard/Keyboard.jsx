@@ -26,8 +26,7 @@ export default function Keyboard() {
     const [textColor, setTextColor] = useState('black');
     const [fontSize, setFontSize] = useState('16px');
     const [fontFamily, setFontFamily] = useState('Arial');    
-    const [colorPalette, setColorPalette] = useState(false);
-    const [fontPallete, setFontPallete] = useState(false);
+    const [colorPalette, setColorPalette] = useState(false);   
 
     const handleRegularKey = (key) => {
         actionHistory.push({ type: 'add', key: key, style: { color: textColor, fontSize: fontSize, fontFamily: fontFamily } });
@@ -144,10 +143,6 @@ export default function Keyboard() {
         setColorPalette(!colorPalette);
                
     }
-
-    const handleFontFamilyChange = () => {
-        setFontPallete(!fontPallete);
-    };
     
     return (
         <>
@@ -166,20 +161,10 @@ export default function Keyboard() {
                 ctrlZ={actionHistory}
             ></Keys>
             <StyleButtons
-                handleFunctions={{ handleFontSizeEnlargement, handleFontSizeReduction}}
-            ></StyleButtons>
-            {/* <ColorPicker
-        width={600}
-        height={400}
-        color={color}
-        onChange={setColor}
-        hideHSV
-        dark
-      /> */}
-
-<CompactPicker onChangeComplete={(nColor=>setColor(nColor.hex))} />;
-<EmojiPicker onEmojiClick={(emojiob)=>handleRegularKey(emojiob.emoji)}></EmojiPicker>
-
+                handleFunctions={{ handleFontSizeEnlargement, handleFontSizeReduction , handleTxtColorChange}}
+                isColorPalleteShown = {colorPalette}
+                setColor = {setTextColor}                
+            ></StyleButtons>            
         </>
     )
 }
