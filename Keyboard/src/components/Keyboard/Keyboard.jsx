@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import './Keyboard.css'
 import Keys from '../Keys/Keys';
 import StyleButtons from '../StyleButtons/StyleButtons';
+import { ColorPicker, useColor } from "react-color-palette";
+//import "react-color-palette/lib/css/styles.css";
+import { TwitterPicker } from 'react-color';
+
 
 export default function Keyboard() {
 
@@ -18,6 +22,7 @@ export default function Keyboard() {
     const [textColor, setTextColor] = useState('black');
     const [fontSize, setFontSize] = useState('16px');
     const [fontFamily, setFontFamily] = useState('Arial');
+    const [color, setColor] = useColor("hex", "#00FF00");
 
     const handleRegularKey = (key) => {
         actionHistory.push({ type: 'add', key: key, style: { color: textColor, fontSize: fontSize, fontFamily: fontFamily } });
@@ -125,6 +130,11 @@ export default function Keyboard() {
         setFontSize(`${newSize}px`);
     }
 
+    const handleTxtColorChange = (color)=>{
+        actionHistory.push({type: 'colorChange', color:'the color'})
+
+    }
+
 
     // const getTextStyle = (size) => ({
     //     color: textColor,
@@ -135,13 +145,13 @@ export default function Keyboard() {
 
     return (
         <>
-            <div className="textArea">
+            <pre className="textArea">
                 {inputText.map((item, index) => (
                     <span key={index} style={item.style}>
                         {item.key}
                     </span>
                 ))}
-            </div>
+            </pre>
             <Keys
                 currState={keyboardState}
                 currIsUpper={isUpper}
@@ -150,8 +160,18 @@ export default function Keyboard() {
                 ctrlZ={actionHistory}
             ></Keys>
             <StyleButtons
-                handleFunctions={{ handleFontSizeEnlargement, handleFontSizeReduction }}
+                handleFunctions={{ handleFontSizeEnlargement, handleFontSizeReduction , handleTxtColorChange}}
             ></StyleButtons>
+            {/* <ColorPicker
+        width={600}
+        height={400}
+        color={color}
+        onChange={setColor}
+        hideHSV
+        dark
+      /> */}
+
+<TwitterPicker onChange={(nColor)=>setTextColor(nColor)} onSwatchHover={(nColor)=>setTextColor(nColor)} />;
         </>
     )
 }
