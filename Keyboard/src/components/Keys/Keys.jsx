@@ -15,8 +15,7 @@ export default function Keys(props) {
         "?", ">", "<", ",", ".", '"', "'", ":"
     ];
     const activeButtons = [{ act: " ", func: props.handleFunctions.handleRegularKey }, { act: "UPPER", func: props.handleFunctions.handleUpperKey }, { act: "changeLanguage", func: props.handleFunctions.handleLanguageChange },
-    { act: props.specialLabel, func: props.handleFunctions.handleSpecialChars }, { act: 'undo', func: props.handleFunctions.handleUndo },
-                        {act: "clear all", func: props.handleFunctions.handleClearAllKey}
+    { act: props.specialLabel, func: props.handleFunctions.handleSpecialChars }, { act: 'undo', func: props.handleFunctions.handleUndo }
         , { act: "🙂", func: props.setEmojiesShown }
     ];
 
@@ -50,7 +49,7 @@ export default function Keys(props) {
     ));
 
     const keysOfActiveButtons = activeButtons.map(key => (
-        <button key={key.act} onClick={() => { !key == "🙂" ? key.func(key.act) : key.func(!props.isEmojiesShown) }}>
+        <button key={key.act} onClick={() => { key.act != "🙂" ? key.func(key.act) : key.func(!props.isEmojiesShown) }}>
             {key.act}
         </button>
     ));
@@ -69,7 +68,7 @@ export default function Keys(props) {
                 <div className="activeButtons">
                     {keysOfActiveButtons}
                     {props.isEmojiesShown && <span className="emoji-picker-container">
-                        <EmojiPicker onEmojiClick={(emoj)=>props.handleFunctions.handleRegularKey(emoj.emoji)}></EmojiPicker>
+                        <EmojiPicker  onEmojiClick={(emoj)=>props.handleFunctions.handleRegularKey(emoj.emoji)}></EmojiPicker>
                         </span>}
                 </div>
             </div>
