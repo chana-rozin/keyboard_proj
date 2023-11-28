@@ -3,8 +3,8 @@ import './Keyboard.css'
 import Keys from '../Keys/Keys';
 import StyleButtons from '../StyleButtons/StyleButtons';
 import { ColorPicker, useColor } from "react-color-palette";
-//import "react-color-palette/lib/css/styles.css";
-import { TwitterPicker } from 'react-color';
+import ReactFontPicker from 'react-font-picker';
+import { FontPicker } from 'react-font-picker';
 
 
 export default function Keyboard() {
@@ -21,8 +21,9 @@ export default function Keyboard() {
     });
     const [textColor, setTextColor] = useState('black');
     const [fontSize, setFontSize] = useState('16px');
-    const [fontFamily, setFontFamily] = useState('Arial');
-    const [color, setColor] = useColor("hex", "#00FF00");
+    const [fontFamily, setFontFamily] = useState('Arial');    
+    const [colorPalette, setColorPalette] = useState(false);
+    const [fontPallete, setFontPallete] = useState(false);
 
     const handleRegularKey = (key) => {
         actionHistory.push({ type: 'add', key: key, style: { color: textColor, fontSize: fontSize, fontFamily: fontFamily } });
@@ -108,10 +109,7 @@ export default function Keyboard() {
                     setKeyboardState("special");
                     setSpecialCharsLabel(lastAction.label);
                 }
-                break;
-            case 'toUpper':
-                setIsUpper(lastAction.isUpperNow);
-                break;
+                break;            
             default:
                 break;
 
@@ -130,19 +128,15 @@ export default function Keyboard() {
         setFontSize(`${newSize}px`);
     }
 
-    const handleTxtColorChange = (color)=>{
-        actionHistory.push({type: 'colorChange', color:'the color'})
-
+    const handleTxtColorChange = ()=> {        
+        setColorPalette(!colorPalette);
+               
     }
 
-
-    // const getTextStyle = (size) => ({
-    //     color: textColor,
-    //     fontSize: size,
-    //     fontFamily: fontFamily,
-    //   });
-
-
+    const handleFontFamilyChange = () => {
+        setFontPallete(!fontPallete);
+    };
+    
     return (
         <>
             <pre className="textArea">
@@ -160,18 +154,12 @@ export default function Keyboard() {
                 ctrlZ={actionHistory}
             ></Keys>
             <StyleButtons
-                handleFunctions={{ handleFontSizeEnlargement, handleFontSizeReduction , handleTxtColorChange}}
-            ></StyleButtons>
-            {/* <ColorPicker
-        width={600}
-        height={400}
-        color={color}
-        onChange={setColor}
-        hideHSV
-        dark
-      /> */}
-
-<TwitterPicker onChange={(nColor)=>setTextColor(nColor)} onSwatchHover={(nColor)=>setTextColor(nColor)} />;
+                handleFunctions={{ handleFontSizeEnlargement, handleFontSizeReduction , handleTxtColorChange, handleFontFamilyChange}}
+                isColorPalleteShown = {colorPalette}
+                setColor = {setTextColor}
+                //isFontPalleteShown = {fontPallete}
+                //setFont = {() => setFontPallete(!fontPallete)}
+            ></StyleButtons>            
         </>
     )
 }
