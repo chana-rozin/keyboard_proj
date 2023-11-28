@@ -1,48 +1,23 @@
 import React, { useState } from "react"
 import './Keys.css'
 import EmojiPicker from "emoji-picker-react";
+import HebrewKeys from "../HebrewKeys/HebrewKeys";
+import EnglishKeys from "../EnglishKeys/EnglishKeys";
+import SpecialKeys from "../SpecialKeys/SpcialKeys";
 
 export default function Keys(props) {
     const numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "Backspace"];
-    const alphaBetEnglishOrderedByKeyboard = ["q", "w", "r", "t", "y", "u", "i", "o", "p",
-        "a", "s", "d", "f", "g", "h", "j", "k", "l", "Enter",
-        "z", "x", "c", "v", "b", "n", "m", ".", ","];
-    const alphaBetHebrewOrderedByKeyboard = [".", ",", "ק", "ר", "א", "ט", "ו", "ן", "ם", "פ",
-        "ש", "ד", "ג", "כ", "ע", "י", "ח", "ל", "ך", "ף", "Enter",
-        "ז", "ס", "ב", "ה", "נ", "מ", "צ", "ת", "ץ"];
-    const specialCharacters = ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")",
-        "~", "[", "]", "{", "}", "-", "+", "=", "/", ";", "Enter",
-        "?", ">", "<", ",", ".", '"', "'", ":"
-    ];
-    const activeButtons = [{ act: " ", func: props.handleFunctions.handleRegularKey }, { act: "UPPER", func: props.handleFunctions.handleUpperKey }, { act: "changeLanguage", func: props.handleFunctions.handleLanguageChange },
-    { act: props.specialLabel, func: props.handleFunctions.handleSpecialChars }, { act: 'undo', func: props.handleFunctions.handleUndo },
-                        {act: "clear all", func: props.handleFunctions.handleClearAllKey}
-        , { act: "🙂", func: props.setEmojiesShown }
+       
+    
+    const activeButtons = [{ act: "UPPER", func: props.handleFunctions.handleUpperKey }, { act: "changeLanguage", func: props.handleFunctions.handleLanguageChange },
+    { act: props.specialLabel, func: props.handleFunctions.handleSpecialChars },
+    { act: "        ", func: props.handleFunctions.handleRegularKey },  
+    { act: 'undo', func: props.handleFunctions.handleUndo },
+    {act: "clear all", func: props.handleFunctions.handleClearAllKey}
+    , { act: "🙂", func: props.setEmojiesShown }
     ];
 
-    const keysOfSpecialChars = specialCharacters.map(key => (
-        <button key={key} onClick={() => key == "Enter" ? props.handleFunctions.handleRegularKey("\n") : props.handleFunctions.handleRegularKey(key)}>
-            {key}
-        </button>
-    ));
-    const keysOfAlphabetEnglishButtons = alphaBetEnglishOrderedByKeyboard.map(key => (
-        <button key={key} onClick={() => key == "Enter" ? props.handleFunctions.handleRegularKey("\n") : props.handleFunctions.handleRegularKey(key)}>
-            {key}
-        </button>
-    ));
-
-    const keysOfAlphabetEnglishButtonsUpper = alphaBetEnglishOrderedByKeyboard.map(key => (
-        <button key={key.toUpperCase()} onClick={() => key == "Enter" ? props.handleFunctions.handleRegularKey("\n") : props.handleFunctions.handleRegularKey(key.toUpperCase())}>
-            {key.toUpperCase()}
-        </button>
-    ));
-
-    const keysOfAlphabetHebrewButtons = alphaBetHebrewOrderedByKeyboard.map(key => (
-        <button key={key} onClick={() => key == "Enter" ? props.handleFunctions.handleRegularKey("\n") : props.handleFunctions.handleRegularKey(key)}>
-            {key}
-        </button>
-    ));
-
+    
     const keysOfNumbers = numbers.map(key => (
         <button key={key} onClick={() => key == "Backspace" ? props.handleFunctions.handleDeleteCharacter() : props.handleFunctions.handleRegularKey(key)}>
             {key}
@@ -50,7 +25,7 @@ export default function Keys(props) {
     ));
 
     const keysOfActiveButtons = activeButtons.map(key => (
-        <button key={key.act} onClick={() => { !key == "🙂" ? key.func(key.act) : key.func(!props.isEmojiesShown) }}>
+        <button key={key.act} onClick={() => { !key == "🙂" ? key.func(key.act) : key.func(!props.isEmojiesShown) }} style={{backgroundColor : (key === "UPPER" && currIsUpper) ? 'red' : 'whitesmoke' }}>
             {key.act}
         </button>
     ));
@@ -62,11 +37,11 @@ export default function Keys(props) {
                     {keysOfNumbers}
                 </div>
                 <div className="charcters">
-                    {props.currState == "hebrew" ? keysOfAlphabetHebrewButtons :
-                        props.currState == "special" ? keysOfSpecialChars :
-                            props.currIsUpper ? keysOfAlphabetEnglishButtonsUpper : keysOfAlphabetEnglishButtons}
+                    {props.currState == "hebrew" ? <HebrewKeys handleFunction = {props.handleFunctions.handleRegularKey} /> :
+                        props.currState == "special" ? <SpecialKeys handleFunction = {props.handleFunctions.handleRegularKey}/> :
+                        <EnglishKeys handleFunction = {props.handleFunctions.handleRegularKey} isUpper = {props.currIsUpper}/>}
                 </div>
-                <div className="activeButtons">
+                <div className="active-buttons">
                     {keysOfActiveButtons}
                     {props.isEmojiesShown && <span className="emoji-picker-container">
                         <EmojiPicker onEmojiClick={(emoj)=>props.handleFunctions.handleRegularKey(emoj.emoji)}></EmojiPicker>

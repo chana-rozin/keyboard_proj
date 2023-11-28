@@ -137,12 +137,6 @@ export default function Keyboard() {
     }
 
 
-    // const getTextStyle = (size) => ({
-    //     color: textColor,
-    //     fontSize: size,
-    //     fontFamily: fontFamily,
-    //   });
-
 
     const handleTxtColorChange = ()=> {        
         setColorPalette(!colorPalette);
@@ -158,7 +152,7 @@ export default function Keyboard() {
     }
 
     return (
-        <>
+        <div className="keyboard">
             <pre className="textArea">
                 {inputText.map((item, index) => (
                     <span key={index} style={item.style}>
@@ -170,8 +164,7 @@ export default function Keyboard() {
                 currState={keyboardState}
                 currIsUpper={isUpper}
                 specialLabel={specialCharsLabel}
-                handleFunctions={{ handleRegularKey, handleDeleteCharacter, handleSpecialChars, handleLanguageChange, handleUpperKey, handleClearAllKey, handleUndo }}
-                ctrlZ={actionHistory}
+                handleFunctions={{ handleRegularKey, handleDeleteCharacter, handleSpecialChars, handleLanguageChange, handleUpperKey, handleClearAllKey, handleUndo }}                
                 isEmojiesShown = {emojiesPalette}
                 setEmojiesShown ={setEmojiesPalette}
             ></Keys>
@@ -181,6 +174,6 @@ export default function Keyboard() {
                 setColor = {setTextColor}
                 isFontsArrayShown = {fontsArrayShow}                               
             ></StyleButtons>            
-        </>
+        </div>
     )
 }

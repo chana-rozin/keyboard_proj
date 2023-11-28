@@ -1,7 +1,30 @@
-.color-picker-container, .fonts-array {
+/* .color-picker-container, .fonts-array {
     position: fixed;
     top: 85%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1000; 
   }
+
+  button {
+    width: 40px;
+    height: 40px;
+    margin: 5px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+ */
+ .StyleButtons {
+  display: flex;
+  gap: 10px;
+  margin-left: 28%;
+}
+
+.color-picker-container,
+.fonts-array {
+  position: fixed;
+    top: 50%;
+    left: 40%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+}
