@@ -41,13 +41,13 @@ export default function Keys(props)
     ));
     
     const keysOfNumbers = numbers.map(key => (
-        <button key={key.act} onClick={() => key == "Backspace" ? props.handleFunctions.handleDeleteCharacter() : props.handleFunctions.handleRegularKey(key)}>
+        <button key={key} onClick={() => key == "Backspace" ? props.handleFunctions.handleDeleteCharacter() : props.handleFunctions.handleRegularKey(key)}>
             {key}
         </button>
     ));
     
     const keysOfActiveButtons = activeButtons.map(key => (
-        <button key={key} onClick={() => {key.func(key.act)}}>
+        <button key={key.act} onClick={() => {key.func(key.act)}}>
             {key.act}
         </button>
     ));

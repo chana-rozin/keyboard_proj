@@ -1,12 +1,12 @@
-import React, { useState} from 'react';
-import  './Keyboard.css'
+import React, { useState } from 'react';
+import './Keyboard.css'
 import Keys from '../Keys/Keys';
+import StyleButtons from '../StyleButtons/StyleButtons';
 
-export default function Keyboard()
-{
+export default function Keyboard() {
 
-    const [inputText, setInputText] = useState('');
-    const [keyboardState, setKeyboardState] = useState("hebrew");    
+    const [inputText, setInputText] = useState([]);
+    const [keyboardState, setKeyboardState] = useState("hebrew");
     const [isUpper, setIsUpper] = useState(false);
     const [specialCharsLabel, setSpecialCharsLabel] = useState("&^@");
     const [actionHistory, setActionHistory] = useState([]);
@@ -14,41 +14,43 @@ export default function Keyboard()
         hebrew: true,
         english: false,
         special: false
-    });    
-    
+    });
+    const [textColor, setTextColor] = useState('black');
+    const [fontSize, setFontSize] = useState('16px');
+    const [fontFamily, setFontFamily] = useState('Arial');
+
     const handleRegularKey = (key) => {
-        actionHistory.push({type: 'add'})
-        setInputText(inputText + key);
-        
+        actionHistory.push({ type: 'add', key: key, style: { color: textColor, fontSize: fontSize, fontFamily: fontFamily } });
+        setInputText((prevText) => [...prevText, { key: key, style: { color: textColor, fontSize: fontSize, fontFamily: fontFamily } }]);
     }
 
     const handleDeleteCharacter = () => {
-        if (inputText.length === 0) { 
-            return; 
-        } 
-        const deletedChar = inputText.slice(-1);
-        const newContent = inputText.slice(0, inputText.length - 1); 
-        actionHistory.push({type: 'delete', deletedChar});
-        setInputText(newContent);         
+        if (inputText.length === 0) {
+            return;
+        }
+        const deletedChar = inputText[inputText.length - 1];
+        const newContent = inputText.slice(0, -1);
+        actionHistory.push({ type: 'delete', deletedChar });
+        setInputText(newContent);
     }
-    
-    
+
+
     const handleSpecialChars = () => {
         if (!currentState.special) {
-            actionHistory.push({type: 'handleSpecial', label: specialCharsLabel});
+            actionHistory.push({ type: 'handleSpecial', label: specialCharsLabel });
             setSpecialCharsLabel(currentState.hebrew ? "אבג" : "abc");
             setCurrentState(prevState => ({ ...prevState, special: true }));
-            setKeyboardState("special");            
+            setKeyboardState("special");
         } else {
-            actionHistory.push({type: 'handleSpecial', label: specialCharsLabel, prevState: currentState.hebrew ? 'hebrew' : 'english'});
+            actionHistory.push({ type: 'handleSpecial', label: specialCharsLabel, prevState: currentState.hebrew ? 'hebrew' : 'english' });
             currentState.hebrew ? setKeyboardState("hebrew") : setKeyboardState("english");
             setSpecialCharsLabel("&^@");
-            setCurrentState(prevState => ({ ...prevState, special: false }));            
+            setCurrentState(prevState => ({ ...prevState, special: false }));
         }
-    };    
+    };
 
     const handleLanguageChange = () => {
-        if (currentState.hebrew) {            
+        if (currentState.hebrew) {
             setCurrentState(prevState => ({ ...prevState, hebrew: false, english: true }));
             setSpecialCharsLabel("&^@");
             setKeyboardState("english");
@@ -62,8 +64,8 @@ export default function Keyboard()
     }
 
     const handleUpperKey = () => {
-        actionHistory.push({type: 'toUpper', isUpperNow: isUpper})
-        setIsUpper(!isUpper)        
+        actionHistory.push({ type: 'toUpper', isUpperNow: isUpper })
+        setIsUpper(!isUpper)
     }
 
     const handleUndo = () => {
@@ -72,14 +74,14 @@ export default function Keyboard()
         if (!lastAction) {
             return;
         }
-        switch(lastAction.type) {
-            case 'add': 
+        switch (lastAction.type) {
+            case 'add':
                 setInputText((prevInputText) => prevInputText.slice(0, -1));
                 break;
             case 'delete':
-                setInputText((prevInputText) => prevInputText + lastAction.deletedChar);
+                setInputText((prevText) => [...prevText, lastAction.deletedChar]);
                 break;
-            case 'changeLanguage':                
+            case 'changeLanguage':
                 setCurrentState((prev) => ({
                     ...prev,
                     hebrew: lastAction.language === 'hebrew',
@@ -94,7 +96,7 @@ export default function Keyboard()
                     english: lastAction.prevState === 'english',
                 }));
                 if (lastAction.label == "&^@") {
-                    setSpecialCharsLabel("&^@");                    
+                    setSpecialCharsLabel("&^@");
                     setKeyboardState(lastAction.prevState);
                 }
                 else {
@@ -111,20 +113,45 @@ export default function Keyboard()
         }
     }
 
-    
-    
+    const handleFontSizeEnlargement = () => {
+        actionHistory.push({ type: 'fontSizeEnlargement', prevSize: fontSize })
+        const newSize = parseInt(fontSize) + 10;
+        setFontSize(`${newSize}px`);
+    }
+
+    const handleFontSizeReduction = () => {
+        actionHistory.push({ type: 'fontSizeReduction', prevSize: fontSize })
+        const newSize = parseInt(fontSize) - 10;
+        setFontSize(`${newSize}px`);
+    }
+
+
+    // const getTextStyle = (size) => ({
+    //     color: textColor,
+    //     fontSize: size,
+    //     fontFamily: fontFamily,
+    //   });
+
+
     return (
         <>
-        <div className="textArea">
-            {inputText}
-        </div>
-        <Keys
-        currState = {keyboardState}
-        currIsUpper = {isUpper}
-        specialLabel = {specialCharsLabel}
-        handleFunctions = {{handleRegularKey, handleDeleteCharacter, handleSpecialChars, handleLanguageChange, handleUpperKey, handleUndo}}
-        ctrlZ = {actionHistory}
-        ></Keys>
+            <div className="textArea">
+                {inputText.map((item, index) => (
+                    <span key={index} style={item.style}>
+                        {item.key}
+                    </span>
+                ))}
+            </div>
+            <Keys
+                currState={keyboardState}
+                currIsUpper={isUpper}
+                specialLabel={specialCharsLabel}
+                handleFunctions={{ handleRegularKey, handleDeleteCharacter, handleSpecialChars, handleLanguageChange, handleUpperKey, handleUndo }}
+                ctrlZ={actionHistory}
+            ></Keys>
+            <StyleButtons
+                handleFunctions={{ handleFontSizeEnlargement, handleFontSizeReduction }}
+            ></StyleButtons>
         </>
     )
 }
