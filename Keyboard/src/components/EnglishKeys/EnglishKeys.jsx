@@ -39,13 +39,13 @@ export default function EnglishKeys(props) {
 
     return (
         props.isUpper ? (<>
-            <div className='row-of-chars' id='first-row'>{KeysOfFirstRowUpper}</div>
-            <div className='row-of-chars' id='second-row'>{KeysOfSecondRowUpper}</div>
-            <div className='row-of-chars' id='third-row'>{KeysOfThirdRowUpper}</div>
+            <pre className='row-of-chars' id='first-row'>{KeysOfFirstRowUpper}</pre>
+            <pre className='row-of-chars' id='second-row'>{KeysOfSecondRowUpper}</pre>
+            <pre className='row-of-chars' id='third-row'>{KeysOfThirdRowUpper}</pre>
         </>) : (<>
-            <div className='row-of-chars' id='first-row'>{KeysOfFirstRow}</div>
-            <div className='row-of-chars' id='second-row'>{KeysOfSecondRow}</div>
-            <div className='row-of-chars' id='third-row'>{KeysOfThirdRow}</div>
+            <pre className='row-of-chars' id='first-row'>{KeysOfFirstRow}</pre>
+            <pre className='row-of-chars' id='second-row'>{KeysOfSecondRow}</pre>
+            <pre className='row-of-chars' id='third-row'>{KeysOfThirdRow}</pre>
         </>)
     )
     

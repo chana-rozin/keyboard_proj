@@ -25,7 +25,7 @@ export default function Keys(props) {
     ));
 
     const keysOfActiveButtons = activeButtons.map(key => (
-        <button key={key.act} onClick={() => { key != "🙂" ? key.func(key.act) : key.func(!props.isEmojiesShown) }} style={{backgroundColor : (key === "UPPER" && currIsUpper) ? 'red' : 'whitesmoke' }}>
+        <button key={key.act} onClick={() => { key.act != "🙂" ? key.func(key.act) : key.func(!props.isEmojiesShown) }} style={{backgroundColor : (key.act === "UPPER" && props.currIsUpper) ? 'red' : 'whitesmoke' }}>
             {key.act}
         </button>
     ));
@@ -36,11 +36,11 @@ export default function Keys(props) {
                 <div className="numbers">
                     {keysOfNumbers}
                 </div>
-                <div className="charcters">
+                <pre className="charcters">
                     {props.currState == "hebrew" ? <HebrewKeys handleFunction = {props.handleFunctions.handleRegularKey} /> :
                         props.currState == "special" ? <SpecialKeys handleFunction = {props.handleFunctions.handleRegularKey}/> :
                         <EnglishKeys handleFunction = {props.handleFunctions.handleRegularKey} isUpper = {props.currIsUpper}/>}
-                </div>
+                </pre>
                 <div className="active-buttons">
                     {keysOfActiveButtons}
                     {props.isEmojiesShown && <span className="emoji-picker-container">

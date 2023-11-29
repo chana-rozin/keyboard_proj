@@ -23,9 +23,9 @@ export default function HebrewKeys(props) {
     ));
     return (
         <>
-        <div className='row-of-chars' id='first-row'>{KeysOfFirstRow}</div>
-        <div className='row-of-chars' id='second-row'>{keysOfSecondRow}</div>
-        <div className='row-of-chars' id='third-row'>{keysOfThirdRow}</div>
+        <pre className='row-of-chars' id='first-row'>{KeysOfFirstRow}</pre>
+        <pre className='row-of-chars' id='second-row'>{keysOfSecondRow}</pre>
+        <pre className='row-of-chars' id='third-row'>{keysOfThirdRow}</pre>
         </>
     )
 }
