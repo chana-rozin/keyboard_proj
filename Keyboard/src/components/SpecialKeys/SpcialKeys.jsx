@@ -13,7 +13,7 @@ export default function SpecialKeys (props) {
         </button>
     ));
     const keysOfSecondRow = secondRow.map(key => (
-        <button key={key} onClick={() => key == "Enter" ? props.handleFunction("\n") : props.handleFunction(key)}>
+        <button key={key} onClick={() => key == "Enter" ? props.handleFunction('\n') : props.handleFunction(key)}>
             {key}
         </button>
     ));

@@ -25,7 +25,7 @@ export default function Keys(props) {
     ));
 
     const keysOfActiveButtons = activeButtons.map(key => (
-        <button key={key.act} onClick={() => { key != "🙂" ? key.func(key.act) : key.func(!props.isEmojiesShown) }} style={{backgroundColor : (key === "UPPER" && currIsUpper) ? 'red' : 'whitesmoke' }}>
+        <button key={key.act} onClick={() => { key.act != "🙂" ? key.func(key.act) : key.func(!props.isEmojiesShown) }} style={{backgroundColor : (key.act === "UPPER" && props.currIsUpper) ? 'red' : 'whitesmoke' }}>
             {key.act}
         </button>
     ));
