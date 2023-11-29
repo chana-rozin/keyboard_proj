@@ -36,11 +36,11 @@ export default function Keys(props) {
                 <div className="numbers">
                     {keysOfNumbers}
                 </div>
-                <pre className="charcters">
+                <div className="charcters">
                     {props.currState == "hebrew" ? <HebrewKeys handleFunction = {props.handleFunctions.handleRegularKey} /> :
                         props.currState == "special" ? <SpecialKeys handleFunction = {props.handleFunctions.handleRegularKey}/> :
                         <EnglishKeys handleFunction = {props.handleFunctions.handleRegularKey} isUpper = {props.currIsUpper}/>}
-                </pre>
+                </div>
                 <div className="active-buttons">
                     {keysOfActiveButtons}
                     {props.isEmojiesShown && <span className="emoji-picker-container">
