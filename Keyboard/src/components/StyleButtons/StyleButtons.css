@@ -17,7 +17,7 @@
  .StyleButtons {
   display: flex;
   gap: 10px;
-  margin-left: 28%;
+  /* margin-left: 28%; */
 }
 
 .color-picker-container,
