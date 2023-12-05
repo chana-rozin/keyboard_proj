@@ -75,6 +75,14 @@ export default function Keyboard() {
         setIsUpper(!isUpper)
     }
 
+    const handleUpperAllKey = () => {
+        actionHistory.push({type: 'upperAll', prevText: inputText})
+        
+        //const temp = inputText.map(charSpan => {...charSpan , key: key.toUpperCase()});
+        // console.log(temp)   
+        // setInputText(temp);
+    }
+
     const handleClearAllKey = () =>{
         actionHistory.push({type: 'clearAll', prevText: inputText});
         setInputText([]);
@@ -117,6 +125,8 @@ export default function Keyboard() {
                 }
                 break;
             case 'clearAll':
+                setInputText(lastAction.prevText)
+            case 'upperAll':
                 setInputText(lastAction.prevText)            
             default:
                 break;
@@ -164,7 +174,7 @@ export default function Keyboard() {
                 currState={keyboardState}
                 currIsUpper={isUpper}
                 specialLabel={specialCharsLabel}
-                handleFunctions={{ handleRegularKey, handleDeleteCharacter, handleSpecialChars, handleLanguageChange, handleUpperKey, handleClearAllKey, handleUndo }}                
+                handleFunctions={{ handleRegularKey, handleDeleteCharacter, handleSpecialChars, handleLanguageChange, handleUpperKey, handleClearAllKey, handleUpperAllKey, handleUndo }}                
                 isEmojiesShown = {emojiesPalette}
                 setEmojiesShown ={setEmojiesPalette}
             ></Keys>

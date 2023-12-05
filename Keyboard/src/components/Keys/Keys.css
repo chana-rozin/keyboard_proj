@@ -1,40 +1,32 @@
-/* .emoji-picker-container{
-    position: fixed;
-    top: 50%;
-    left: 40%;
-    transform: translate(-50%, -50%);
-    z-index: 1000; 
-}
 
-.active-buttons {
-    display: inline-block;
-}
-
-button {
-    width: 80px;
-    height: 40px;
-    margin: 5px;
-    border: 1px solid #ccc;
-    cursor: pointer;
-}
- */
-
- /* Keys.css */
 .keyboard {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-  }
+    gap: 8px;
+  }  
   
-  
-  
+    
   button {
+  
     padding: 8px 12px;
-    font-size: 14px;
+    font-size: 19px;
     cursor: pointer;
     border: 1px solid #ccc;
     border-radius: 4px;
     background-color: #fff;
+  }
+
+  .space {
+    width: 160px;
+    height: 40px;   
+  }
+
+  .active-btn {
+    height: 40px;
+  }
+  .active-buttons {
+    display: flex;
+    align-items: center;
   }
   
   .emoji-picker-container {

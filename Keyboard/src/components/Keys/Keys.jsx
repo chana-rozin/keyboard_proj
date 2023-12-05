@@ -9,23 +9,25 @@ export default function Keys(props) {
     const numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "Backspace"];
        
     
-    const activeButtons = [{ act: "UPPER", func: props.handleFunctions.handleUpperKey }, { act: "changeLanguage", func: props.handleFunctions.handleLanguageChange },
+    const activeButtons = [{ act: "Shift", func: props.handleFunctions.handleUpperKey }, 
+    { act: "🌐", func: props.handleFunctions.handleLanguageChange },
     { act: props.specialLabel, func: props.handleFunctions.handleSpecialChars },
     { act: " ", func: props.handleFunctions.handleRegularKey },  
-    { act: 'undo', func: props.handleFunctions.handleUndo },
-    {act: "clear all", func: props.handleFunctions.handleClearAllKey}
-    , { act: "🙂", func: props.setEmojiesShown }
+    { act: "↩️", func: props.handleFunctions.handleUndo },
+    { act: "clear all", func: props.handleFunctions.handleClearAllKey},
+    { act: "🙂", func: props.setEmojiesShown },
+    { act: "UPPER ALL", func: props.handleFunctions.handleUpperAllKey}
     ];
 
     
     const keysOfNumbers = numbers.map(key => (
-        <button key={key} onClick={() => key == "Backspace" ? props.handleFunctions.handleDeleteCharacter() : props.handleFunctions.handleRegularKey(key)}>
+        <button key={key}  onClick={() => key == "Backspace" ? props.handleFunctions.handleDeleteCharacter() : props.handleFunctions.handleRegularKey(key)}>
             {key}
         </button>
     ));
 
     const keysOfActiveButtons = activeButtons.map(key => (
-        <button key={key.act} onClick={() => { key != "🙂" ? key.func(key.act) : key.func(!props.isEmojiesShown) }} style={{backgroundColor : (key === "UPPER" && currIsUpper) ? 'red' : 'whitesmoke' }}>
+        <button key={key.act} className={key.act == " " ? "space" : 'active-btn'} onClick={() => { key.act != "🙂" ? key.func(key.act) : key.func(!props.isEmojiesShown) }} style={{backgroundColor : (key.act === "UPPER" && props.currIsUpper) ? 'LightSteelBlue' : '#fff' }}>
             {key.act}
         </button>
     ));
