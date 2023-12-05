@@ -165,9 +165,9 @@ export default function Keyboard() {
         <div className="keyboard">
             <pre className="textArea">
                 {inputText.map((item, index) => (
-                    <pre key={index} style={item.style}>
+                    <span key={index} style={item.style}>
                         {item.key}
-                    </pre>
+                    </span>
                 ))}
             </pre>
             <Keys
