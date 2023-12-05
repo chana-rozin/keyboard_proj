@@ -76,11 +76,8 @@ export default function Keyboard() {
     }
 
     const handleUpperAllKey = () => {
-        actionHistory.push({type: 'upperAll', prevText: inputText})
-        
-        //const temp = inputText.map(charSpan => {...charSpan , key: key.toUpperCase()});
-        // console.log(temp)   
-        // setInputText(temp);
+        actionHistory.push({type: 'upperAll', prevText: inputText});      
+        setInputText(prevInputText => prevInputText.map(charObj => ({...charObj, key: charObj.key.toUpperCase()})))      
     }
 
     const handleClearAllKey = () =>{

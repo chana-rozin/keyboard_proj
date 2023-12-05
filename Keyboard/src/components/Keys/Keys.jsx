@@ -27,7 +27,7 @@ export default function Keys(props) {
     ));
 
     const keysOfActiveButtons = activeButtons.map(key => (
-        <button key={key.act} className={key.act == " " ? "space" : 'active-btn'} onClick={() => { key.act != "🙂" ? key.func(key.act) : key.func(!props.isEmojiesShown) }} style={{backgroundColor : (key.act === "UPPER" && props.currIsUpper) ? 'LightSteelBlue' : '#fff' }}>
+        <button key={key.act} className={key.act == " " ? "space" : 'active-btn'} onClick={() => { key.act != "🙂" ? key.func(key.act) : key.func(!props.isEmojiesShown) }} style={{backgroundColor : (key.act === "Shift" && props.currIsUpper) ? 'LightSteelBlue' : '#fff' }}>
             {key.act}
         </button>
     ));
