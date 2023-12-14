@@ -7,6 +7,7 @@ export default function SpecialKeys (props) {
     const secondRow = ["~", "[", "]", "{", "}", "-", "+", "=", "/", ";", "Enter"];
     const thirdRow = ["?", ">", "<", ",", ".", '"', "'", ":", "="];
 
+    //Next three declarations of consts are the three main rows of the keyboard in spacial chars  mode
     const KeysOfFirstRow = firstRow.map(key => (
         <button key={key} onClick={() => props.handleFunction(key)}>
             {key}

@@ -3,7 +3,6 @@ import './Keyboard.css'
 import Keys from '../Keys/Keys';
 import StyleButtons from '../StyleButtons/StyleButtons';
 import { ColorPicker, useColor } from "react-color-palette";
-//import "react-color-palette/lib/css/styles.css";
 import { CompactPicker } from 'react-color';
 
 
@@ -26,11 +25,13 @@ export default function Keyboard() {
     const [colorPalette, setColorPalette] = useState(false); 
     const [emojiesPalette, setEmojiesPalette] = useState(false);   
 
+    //Handling pressing on a key that is an alphabet, numerical, space or Enter key
     const handleRegularKey = (key) => {
         actionHistory.push({ type: 'add', key: key, style: { color: textColor, fontSize: fontSize, fontFamily: fontFamily } });
         setInputText((prevText) => [...prevText, { key: key, style: { color: textColor, fontSize: fontSize, fontFamily: fontFamily } }]);
     }
 
+    //Handling pressing the Backspace button (deleting the last character written)
     const handleDeleteCharacter = () => {
         if (inputText.length === 0) {
             return;
@@ -42,6 +43,7 @@ export default function Keyboard() {
     }
 
 
+    //Handling changing the keyboard mode to include a keyboard showing the special characters
     const handleSpecialChars = () => {
         if (!currentState.special) {
             actionHistory.push({ type: 'handleSpecial', label: specialCharsLabel });
@@ -56,6 +58,7 @@ export default function Keyboard() {
         }
     };
 
+    //Dealing with changing the keyboard mode when switching from Hebrew to English or vice versa
     const handleLanguageChange = () => {
         if (currentState.hebrew) {
             setCurrentState(prevState => ({ ...prevState, hebrew: false, english: true }));
@@ -70,21 +73,56 @@ export default function Keyboard() {
         }
     }
 
+    //Handling pressing on the Shift key by changing the keyboard to upper  mode or vice versa
     const handleUpperKey = () => {
         actionHistory.push({ type: 'toUpper', isUpperNow: isUpper })
         setIsUpper(!isUpper)
     }
 
+    //Handling of pressing the upper all button by turning all the text that was until now into uppercase mode
     const handleUpperAllKey = () => {
         actionHistory.push({type: 'upperAll', prevText: inputText});      
         setInputText(prevInputText => prevInputText.map(charObj => ({...charObj, key: charObj.key.toUpperCase()})))      
     }
 
+    //Handling deleting all the previous text 
     const handleClearAllKey = () =>{
         actionHistory.push({type: 'clearAll', prevText: inputText});
         setInputText([]);
     }
 
+    //Handling increasing the font from now on
+    const handleFontSizeEnlargement = () => {
+        actionHistory.push({ type: 'fontSizeEnlargement', prevSize: fontSize })
+        const newSize = parseInt(fontSize) + 10;
+        setFontSize(`${newSize}px`);
+    }
+
+    //Handling decreasing the font from now on
+    const handleFontSizeReduction = () => {
+        actionHistory.push({ type: 'fontSizeReduction', prevSize: fontSize })
+        const newSize = parseInt(fontSize) - 10;
+        setFontSize(`${newSize}px`);
+    }
+
+
+    //Handling change of text color from now on
+    const handleTxtColorChange = ()=> {        
+        setColorPalette(!colorPalette);
+               
+    }
+
+    //Handling change of the text font from now on
+    const handleFontChange = (key) => {
+        setFontFamily(key);
+    }
+    
+    //Handling the display of the list of available fonts
+    const handleFontKey = () => {
+        setFontsArrayShow(!fontsArrayShow)
+    }
+
+    //Handling the undo button, which cancles the last action that has been done on the text.
     const handleUndo = () => {
         const lastAction = actionHistory.pop();
 
@@ -131,32 +169,7 @@ export default function Keyboard() {
         }
     }
 
-    const handleFontSizeEnlargement = () => {
-        actionHistory.push({ type: 'fontSizeEnlargement', prevSize: fontSize })
-        const newSize = parseInt(fontSize) + 10;
-        setFontSize(`${newSize}px`);
-    }
-
-    const handleFontSizeReduction = () => {
-        actionHistory.push({ type: 'fontSizeReduction', prevSize: fontSize })
-        const newSize = parseInt(fontSize) - 10;
-        setFontSize(`${newSize}px`);
-    }
-
-
-
-    const handleTxtColorChange = ()=> {        
-        setColorPalette(!colorPalette);
-               
-    }
-
-    const handleFontChange = (key) => {
-        setFontFamily(key);
-    }
     
-    const handleFontKey = () => {
-        setFontsArrayShow(!fontsArrayShow)
-    }
 
     return (
         <div className="keyboard">

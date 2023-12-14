@@ -1,10 +1,12 @@
-import React, { useState} from 'react'
+import React, { useState } from 'react'
 import './EnglishKeys.css'
 
-export default function EnglishKeys(props) {    
+export default function EnglishKeys(props) {
     const firstRow = ["q", "w", "r", "t", "y", "u", "i", "o", "p"];
     const secondRow = ["a", "s", "d", "f", "g", "h", "j", "k", "l", "Enter"];
     const thirdRow = ["z", "x", "c", "v", "b", "n", "m", ".", ","];
+
+    //Next three declarations of consts are the three main rows of the keyboard
     const KeysOfFirstRow = firstRow.map(key => (
         <button key={key} onClick={() => props.handleFunction(key)}>
             {key}
@@ -21,6 +23,7 @@ export default function EnglishKeys(props) {
         </button>
     ));
 
+    //Next three declarations of consts are the three main rows of the keyboard in uppercase 
     const KeysOfFirstRowUpper = firstRow.map(key => (
         <button key={key.toUpperCase()} onClick={() => props.handleFunction(key.toUpperCase())}>
             {key.toUpperCase()}
@@ -48,6 +51,6 @@ export default function EnglishKeys(props) {
             <div className='row-of-chars' id='third-row'>{KeysOfThirdRow}</div>
         </>)
     )
-    
-    
+
+
 }

@@ -20,6 +20,7 @@ export default function Keys(props) {
     ];
 
     
+    //The next two consts are declarations of the top and button rows of the keyboard, which are constantly displayed
     const keysOfNumbers = numbers.map(key => (
         <button key={key}  onClick={() => key == "Backspace" ? props.handleFunctions.handleDeleteCharacter() : props.handleFunctions.handleRegularKey(key)}>
             {key}
